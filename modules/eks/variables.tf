@@ -1,0 +1,9 @@
+variable "cluster_name" {}
+variable "subnet_ids" {}
+variable "vpc_id" {}
+variable "cluster_role_arn" {}
+variable "node_role_arn" {}
+variable "desired_capacity" {}
+variable "max_capacity" {}
+variable "min_capacity" {}
+variable "instance_type" {}
