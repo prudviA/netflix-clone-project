@@ -1,6 +1,6 @@
 resource "aws_eks_cluster" "netflix_eks" {
   name     = "netflix_eks"
-  role_arn = aws_iam_role.eks_cluster_role.name
+  role_arn = aws_iam_role.eks_cluster_role.arn
 
   vpc_config {
     subnet_ids = [ 
