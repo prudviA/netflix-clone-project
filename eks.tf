@@ -33,7 +33,7 @@ resource "aws_eks_node_group" "eks_nodes" {
     min_size     = 1
   }
 
-  instance_types = ["t3-small"]
+  instance_types = ["t3.small"]
   disk_size = 20
   depends_on     = [aws_eks_cluster.netflix_eks]
 
