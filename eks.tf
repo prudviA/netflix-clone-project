@@ -1,24 +1,40 @@
-resource "aws_eks_cluster" "eks" {
-  name     = var.cluster_name
-  role_arn = var.cluster_role_arn
+resource "aws_eks_cluster" "netflix_eks" {
+  name     = "netflix_eks"
+  role_arn = aws_iam_role.eks_cluster_role.name
 
   vpc_config {
-    subnet_ids = var.subnet_ids
+    subnet_ids = [ 
+      aws_subnet.public_subnet_1 , 
+      aws_subnet.public_subnet_2 ]
+
+      endpoint_private_access = false
+      endpoint_public_access = true
+  }
+  
+tags = {
+    Name = "netflix_eks"
   }
 }
 
+
+
 resource "aws_eks_node_group" "eks_nodes" {
-  cluster_name    = aws_eks_cluster.eks.name
+  cluster_name    = aws_eks_cluster.netflix_eks.name
   node_group_name = "node-group"
-  node_role_arn   = var.node_role_arn
-  subnet_ids      = var.subnet_ids
+  node_role_arn   = aws_iam_role.eks_node_role.name
+  subnet_ids      = ["public_subnet_1", "public_subnet_2"]
 
   scaling_config {
-    desired_size = var.desired_capacity
-    max_size     = var.max_capacity
-    min_size     = var.min_capacity
+    desired_size = 2
+    max_size     = 3
+    min_size     = 1
   }
 
-  instance_types = [var.instance_type]
-  depends_on     = [aws_eks_cluster.eks]
+  instance_types = ["t3-medium"]
+  disk_size = 20
+  depends_on     = [aws_eks_cluster.netflix_eks]
+
+  tags = {
+    Name = "node-group"
+  }
 }
