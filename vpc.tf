@@ -17,6 +17,8 @@ resource "aws_subnet" "public_subnet_1" {
 
   tags = {
     Name = "public_subnet_1"
+   "kubernetes.io/role/elb"              = "1"
+    "kubernetes.io/cluster/netflix_eks"   = "owned"
   }
 }
 
@@ -28,6 +30,8 @@ resource "aws_subnet" "public_subnet_2" {
 
   tags = {
     Name = "public_subnet_2"
+    "kubernetes.io/role/elb"              = "1"
+    "kubernetes.io/cluster/netflix_eks"   = "owned"
   }
 }
 
