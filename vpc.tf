@@ -51,12 +51,12 @@ resource "aws_route_table" "eks_rt_table" {
   }
 }
 
-resource "aws_route_table_association" "eks_rt_assoc" {
+resource "aws_route_table_association" "eks_rt_assoc_1" {
   subnet_id      = aws_subnet.public_subnet_1.id
   route_table_id = aws_route_table.eks_rt_table.id
 }
 
-resource "aws_route_table_association" "eks_rt_assoc" {
+resource "aws_route_table_association" "eks_rt_assoc_2" {
   subnet_id      = aws_subnet.public_subnet_2.id
   route_table_id = aws_route_table.eks_rt_table.id
 }
